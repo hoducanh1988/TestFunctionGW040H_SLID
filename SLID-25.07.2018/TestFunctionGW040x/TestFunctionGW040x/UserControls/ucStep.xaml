@@ -1,0 +1,1094 @@
+﻿<UserControl x:Class="TestFunctionGW040x.ucStep"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestFunctionGW040x"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="750">
+
+    <UserControl.Resources>
+
+        <Style TargetType="{x:Type TabItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border  Name="Border" Margin="0,0,-4,0" BorderThickness="1,1,1,1" CornerRadius="2,12,0,0" >
+                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="12,2,12,2" RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="100"/>
+                                <Setter TargetName="Border" Property="Background" Value="#43d854" />
+                                <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
+                            </Trigger>
+
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="#FFEEEEEE" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="Orange" />
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Border BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" CornerRadius="5" Background="{StaticResource colorBackground}">
+        <TabControl  SelectionChanged="TabControl_SelectionChanged" Margin="2" BorderThickness="0" Background="{StaticResource colorBackground}">
+            <!--Kiem tra phiên bản firmware-->
+            <TabItem>
+                <TabItem.Header>
+                    <Grid Height="30">
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Text="Check Firmware" FontWeight="SemiBold"/>
+                    </Grid>
+                </TabItem.Header>
+                <Border Background="Transparent" CornerRadius="0,0,5,5" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                    <Grid Margin="10,10,10,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Margin="0,0,5,0" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="0">
+                            <Grid Margin="5,10,10,0">
+                                <StackPanel>
+                                    <Label FontSize="15" FontWeight="SemiBold">Version Firmware:</Label>
+                                    <TextBox x:Name="txtFW" FontSize="15" FontWeight="Bold" Text="{Binding Path=FWVERSION, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"></TextBox>
+                                </StackPanel>
+                                <RichTextBox x:Name="rtbFirmware" IsReadOnly="True" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="Transparent" FontWeight="Normal" Block.LineHeight="1" Margin="0,80,0,0"></RichTextBox>
+                            </Grid>
+                        </Border>
+                        <Border Background="#555555" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="1">
+                            <StackPanel Margin="5,10,10,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="200"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="btnCheckFW" Click="btnCheckFW_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="60" Background="{StaticResource colorBackground}" Foreground="Black" Content="Kiểm tra firmware">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.ToolTip>
+                                            <ToolTip Background="Transparent" BorderThickness="0">
+                                                <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                    <StackPanel Margin="5">
+                                                        <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC KIỂM TRA FIRMWARE:</TextBlock>
+                                                        <TextBlock></TextBlock>
+                                                        <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 4. Click nút 'Kiểm tra firmware'</TextBlock>
+                                                        <TextBlock></TextBlock>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ToolTip>
+                                        </Button.ToolTip>
+                                    </Button>
+                                    <Grid Grid.Row="1">
+                                        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                                            <Label FontSize="15" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center">Kết quả kiểm tra:</Label>
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="tbFWResult" FontWeight="Bold" FontSize="80" Text="--">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=tbFWResult, Path=Text}" Value="PASS">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbFWResult, Path=Text}" Value="FAIL">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbFWResult, Path=Text}" Value="wait">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbFWResult, Path=Text}" Value="--">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="tbFWVersion" FontSize="20" FontWeight="SemiBold" Foreground="White" Text="--"></TextBlock>
+                                        </StackPanel>
+                                       
+                                    </Grid>
+                                </Grid>
+                                
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+            </TabItem>
+            <!--Kiem tra địa chỉ MAC-->
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontSize="15" Text="Check MAC" FontWeight="SemiBold"/>
+                </TabItem.Header>
+                <Border Background="{StaticResource colorBackground}" CornerRadius="0,0,5,5" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                    <Grid Margin="10,10,10,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Margin="0,0,5,0" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="0">
+                            <Grid Margin="5,10,10,0">
+                                <StackPanel>
+                                    <Label FontSize="15" FontWeight="SemiBold">Địa chỉ MAC trên tem của ONT:</Label>
+                                    <TextBox CharacterCasing="Upper" x:Name="txtMAC" FontSize="15" FontWeight="Bold"></TextBox>
+                                </StackPanel>
+                                <RichTextBox x:Name="rtbMAC" IsReadOnly="True" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="Transparent" FontWeight="Normal" Block.LineHeight="1" Margin="0,80,0,0"></RichTextBox>
+                            </Grid>
+                        </Border>
+                        <Border Background="#555555" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="1">
+                            <StackPanel Margin="5,10,10,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="200"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="btnCheckMAC" Click="btnCheckMAC_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="60" Background="{StaticResource colorBackground}" Foreground="Black" Content="Kiểm tra MAC">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.ToolTip>
+                                            <ToolTip Background="Transparent" BorderThickness="0">
+                                                <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                    <StackPanel Margin="5">
+                                                        <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC KIỂM TRA MAC:</TextBlock>
+                                                        <TextBlock></TextBlock>
+                                                        <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 4. Click nút 'Kiểm tra MAC'</TextBlock>
+                                                        <TextBlock></TextBlock>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ToolTip>
+                                        </Button.ToolTip>
+                                    </Button>
+                                    <Grid Grid.Row="1">
+                                        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                                            <Label FontSize="15" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center">Kết quả kiểm tra:</Label>
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="tbMACResult" FontWeight="Bold" FontSize="80" Text="--">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=tbMACResult, Path=Text}" Value="PASS">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbMACResult, Path=Text}" Value="FAIL">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbMACResult, Path=Text}" Value="wait">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbMACResult, Path=Text}" Value="--">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="tbMACAddress" FontSize="20" FontWeight="SemiBold" Foreground="White" Text="--"></TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+            </TabItem>
+            <!--Kiem tra cổng LAN-->
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontSize="15" Text="Check LAN" FontWeight="SemiBold"/>
+                </TabItem.Header>
+                <Border Background="{StaticResource colorBackground}" CornerRadius="0,0,5,5" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                    <Grid Margin="10,10,10,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Margin="0,0,5,0" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="0">
+                            <Grid Margin="5,10,10,0">
+                                <RichTextBox x:Name="rtbLAN" IsReadOnly="True" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="Transparent" FontWeight="Normal" Block.LineHeight="1" Margin="0,0,0,0"></RichTextBox>
+                            </Grid>
+                        </Border>
+                        <Border Background="#555555" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="1">
+                            <StackPanel Margin="5,10,10,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="100"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="btnCheckLAN" Click="btnCheckLAN_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="60" Background="{StaticResource colorBackground}" Foreground="Black" Content="Kiểm tra LAN">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.ToolTip>
+                                            <ToolTip Background="Transparent" BorderThickness="0">
+                                                <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                    <StackPanel Margin="5">
+                                                        <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC KIỂM TRA LAN:</TextBlock>
+                                                        <TextBlock></TextBlock>
+                                                        <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 4. Click nút 'Kiểm tra LAN'</TextBlock>
+                                                        <TextBlock></TextBlock>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ToolTip>
+                                        </Button.ToolTip>
+                                    </Button>
+                                    <Grid Grid.Row="1">
+                                        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                                            <Label Margin="0,0,0,10" FontSize="15" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left">Kết quả kiểm tra:</Label>
+                                            <WrapPanel>
+                                                <Label FontSize="20" FontWeight="Normal" Foreground="{StaticResource colorTextYellow}">LAN-PORT1:</Label>
+                                                <Label x:Name="lblLAN1Result" FontSize="20" FontWeight="Bold" Content="PASS">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN1Result, Path=Content}" Value="PASS">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN1Result, Path=Content}" Value="FAIL">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN1Result, Path=Content}" Value="wait">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN1Result, Path=Content}" Value="--">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <Label FontSize="20" FontWeight="Normal" Foreground="{StaticResource colorTextYellow}">LAN-PORT2:</Label>
+                                                <Label x:Name="lblLAN2Result" FontSize="20" FontWeight="Bold" Content="PASS">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN2Result, Path=Content}" Value="PASS">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN2Result, Path=Content}" Value="FAIL">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN2Result, Path=Content}" Value="wait">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN2Result, Path=Content}" Value="--">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <Label FontSize="20" FontWeight="Normal" Foreground="{StaticResource colorTextYellow}">LAN-PORT3:</Label>
+                                                <Label x:Name="lblLAN3Result" FontSize="20" FontWeight="Bold" Content="PASS">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN3Result, Path=Content}" Value="PASS">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN3Result, Path=Content}" Value="FAIL">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN3Result, Path=Content}" Value="wait">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN3Result, Path=Content}" Value="--">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <Label FontSize="20" FontWeight="Normal" Foreground="{StaticResource colorTextYellow}">LAN-PORT4:</Label>
+                                                <Label x:Name="lblLAN4Result" FontSize="20" FontWeight="Bold" Content="PASS">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN4Result, Path=Content}" Value="PASS">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN4Result, Path=Content}" Value="FAIL">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN4Result, Path=Content}" Value="wait">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblLAN4Result, Path=Content}" Value="--">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                            </WrapPanel>
+                                            <Label Margin="0,10,0,10" FontSize="15" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left">PHÁN ĐỊNH TỔNG:</Label>
+                                            <TextBlock VerticalAlignment="Center" Margin="0,-20,0,0" HorizontalAlignment="Center" x:Name="tbLANResult" FontWeight="Bold" FontSize="80" Text="PASS">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=tbLANResult, Path=Text}" Value="PASS">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbLANResult, Path=Text}" Value="FAIL">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbLANResult, Path=Text}" Value="wait">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbLANResult, Path=Text}" Value="--">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+            </TabItem>
+            <!--Kiem tra cổng USB-->
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontSize="15" Text="Check USB" FontWeight="SemiBold"/>
+                </TabItem.Header>
+                <Border Background="{StaticResource colorBackground}" CornerRadius="0,0,5,5" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                    <Grid Margin="10,10,10,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Margin="0,0,5,0" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="0">
+                            <Grid Margin="5,10,10,0">
+                                <RichTextBox x:Name="rtbUSB" IsReadOnly="True" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="Transparent" FontWeight="Normal" Block.LineHeight="1" Margin="0,0,0,0"></RichTextBox>
+                            </Grid>
+                        </Border>
+                        <Border Background="#555555" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="1">
+                            <StackPanel Margin="5,10,10,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="100"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="btnCheckUSB" Click="btnCheckUSB_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="60" Background="{StaticResource colorBackground}" Foreground="Black" Content="Kiểm tra USB">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.ToolTip>
+                                            <ToolTip Background="Transparent" BorderThickness="0">
+                                                <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                    <StackPanel Margin="5">
+                                                        <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC KIỂM TRA USB:</TextBlock>
+                                                        <TextBlock></TextBlock>
+                                                        <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 4. Click nút 'Kiểm tra USB'</TextBlock>
+                                                        <TextBlock></TextBlock>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ToolTip>
+                                        </Button.ToolTip>
+                                    </Button>
+                                    <Grid Grid.Row="1">
+                                        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                                            <Label Margin="0,0,0,10" FontSize="15" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left">Kết quả kiểm tra:</Label>
+                                            <WrapPanel>
+                                                <Label FontSize="20" FontWeight="Normal" Foreground="{StaticResource colorTextYellow}">USB 2.0:</Label>
+                                                <Label x:Name="lblUSB2Result" FontSize="20" FontWeight="Bold" Content="PASS">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=lblUSB2Result, Path=Content}" Value="PASS">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblUSB2Result, Path=Content}" Value="FAIL">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblUSB2Result, Path=Content}" Value="wait">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblUSB2Result, Path=Content}" Value="--">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <Label FontSize="20" FontWeight="Normal" Foreground="{StaticResource colorTextYellow}">USB 3.0:</Label>
+                                                <Label x:Name="lblUSB3Result" FontSize="20" FontWeight="Bold" Content="PASS">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=lblUSB3Result, Path=Content}" Value="PASS">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblUSB3Result, Path=Content}" Value="FAIL">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblUSB3Result, Path=Content}" Value="wait">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblUSB3Result, Path=Content}" Value="--">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                            </WrapPanel>
+                                            <Label Margin="0,10,0,10" FontSize="15" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left">PHÁN ĐỊNH TỔNG:</Label>
+                                            <TextBlock VerticalAlignment="Center" Margin="0,-20,0,0" HorizontalAlignment="Center" x:Name="tbUSBResult" FontWeight="Bold" FontSize="80" Text="PASS">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=tbUSBResult, Path=Text}" Value="PASS">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbUSBResult, Path=Text}" Value="FAIL">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbUSBResult, Path=Text}" Value="wait">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbUSBResult, Path=Text}" Value="--">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+            </TabItem>
+            <!--Kiem tra đồng bộ quang-->
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontSize="15" Text="Check SynOptical" FontWeight="SemiBold"/>
+                </TabItem.Header>
+                <Border Background="{StaticResource colorBackground}" CornerRadius="0,0,5,5" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                    <Grid Margin="10,10,10,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Margin="0,0,5,0" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="0">
+                            <Grid Margin="5,10,10,0">
+                                <RichTextBox x:Name="rtbSYN" IsReadOnly="True" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="Transparent" FontWeight="Normal" Block.LineHeight="1" Margin="0,0,0,0"></RichTextBox>
+                            </Grid>
+                        </Border>
+                        <Border Background="#555555" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="1">
+                            <StackPanel Margin="5,10,10,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="120"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0">
+                                        <Button x:Name="btnCheckSYN" Click="btnCheckSYN_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="45" Background="{StaticResource colorBackground}" Foreground="Black" Content="Kiểm tra đồng bộ quang">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                            <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                            <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Button.ToolTip>
+                                                <ToolTip Background="Transparent" BorderThickness="0">
+                                                    <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                        <StackPanel Margin="5">
+                                                            <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC KIỂM TRA ĐỒNG BỘ QUANG:</TextBlock>
+                                                            <TextBlock></TextBlock>
+                                                            <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                            <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                            <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                            <TextBlock Foreground="White">Bước 4. Click nút 'Kiểm tra đồng bộ quang'</TextBlock>
+                                                            <TextBlock></TextBlock>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </ToolTip>
+                                            </Button.ToolTip>
+                                        </Button>
+                                        <Button Click="btnReadOLT_Click" Grid.Row="0" Height="45" Background="{StaticResource colorBackground}" FontWeight="Normal" Foreground="Black" Margin="0,5,0,0" x:Name="btnReadOLT" FontSize="17">Đọc dữ liệu từ OLT</Button>
+                                    </StackPanel>
+                                  
+                                    <Grid Grid.Row="1">
+                                        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                                            <Label Margin="0,0,0,10" FontSize="15" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left">Kết quả kiểm tra:</Label>
+                                            <WrapPanel>
+                                                <Label FontSize="20" FontWeight="Normal" Foreground="{StaticResource colorTextYellow}">GPON ONT:</Label>
+                                                <Label x:Name="lblONTResult" FontSize="20" Foreground="{StaticResource colorTextYellow}" FontWeight="Bold" Content="VNPTxxx"></Label>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <Label FontSize="20" FontWeight="Normal" Foreground="{StaticResource colorTextYellow}">GPON OLT:</Label>
+                                                <Label x:Name="lblOLTResult" FontSize="20" FontWeight="Bold" Foreground="{StaticResource colorTextYellow}" Content="PASS">
+                                                </Label>
+                                            </WrapPanel>
+                                            <Label Margin="0,10,0,10" FontSize="15" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left">PHÁN ĐỊNH TỔNG:</Label>
+                                            <TextBlock VerticalAlignment="Center" Margin="0,-20,0,0" HorizontalAlignment="Center" x:Name="tbSYNResult" FontWeight="Bold" FontSize="80" Text="PASS">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=tbSYNResult, Path=Text}" Value="PASS">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbSYNResult, Path=Text}" Value="FAIL">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbSYNResult, Path=Text}" Value="wait">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbSYNResult, Path=Text}" Value="--">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+            </TabItem>
+            <!--Kiem tra công suất quang-->
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontSize="15" Text="Check PowerOptical" FontWeight="SemiBold"/>
+                </TabItem.Header>
+                <Border Background="{StaticResource colorBackground}" CornerRadius="0,0,5,5" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                    <Grid Margin="10,10,10,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Margin="0,0,5,0" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="0">
+                            <Grid Margin="5,10,10,0">
+                                <RichTextBox x:Name="rtbPowerOptical" IsReadOnly="True" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="Transparent" FontWeight="Normal" Block.LineHeight="1" Margin="0,0,0,0"></RichTextBox>
+                            </Grid>
+                        </Border>
+                        <Border Background="#555555" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="1">
+                            <StackPanel Margin="5,10,10,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="100"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="btnCheckPowerOptical" Click="btnCheckPowerOptical_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="60" Background="{StaticResource colorBackground}" Foreground="Black" Content="Kiểm tra công suất quang">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.ToolTip>
+                                            <ToolTip Background="Transparent" BorderThickness="0">
+                                                <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                    <StackPanel Margin="5">
+                                                        <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC KIỂM TRA CÔNG SUẤT QUANG:</TextBlock>
+                                                        <TextBlock></TextBlock>
+                                                        <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 4. Click nút 'Kiểm tra công suất quang'</TextBlock>
+                                                        <TextBlock></TextBlock>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ToolTip>
+                                        </Button.ToolTip>
+                                    </Button>
+                                    <Grid Grid.Row="1">
+                                        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                                            <Label Margin="0,0,0,10" FontSize="15" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left">Kết quả kiểm tra:</Label>
+                                            <WrapPanel>
+                                                <Label FontSize="20" FontWeight="Normal" Foreground="{StaticResource colorTextYellow}">TX Optical:</Label>
+                                                <Label x:Name="lblTXResult" FontSize="20" FontWeight="Bold" Content="PASS">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=lblTXResult, Path=Content}" Value="PASS">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblTXResult, Path=Content}" Value="FAIL">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblTXResult, Path=Content}" Value="wait">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblTXResult, Path=Content}" Value="--">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <Label FontSize="20" FontWeight="Normal" Foreground="{StaticResource colorTextYellow}">RX Optical:</Label>
+                                                <Label x:Name="lblRXResult" FontSize="20" FontWeight="Bold" Content="PASS">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=lblRXResult, Path=Content}" Value="PASS">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblRXResult, Path=Content}" Value="FAIL">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblRXResult, Path=Content}" Value="wait">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblRXResult, Path=Content}" Value="--">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                            </WrapPanel>
+                                            <Label Margin="0,10,0,10" FontSize="15" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left">PHÁN ĐỊNH TỔNG:</Label>
+                                            <TextBlock VerticalAlignment="Center" Margin="0,-20,0,0" HorizontalAlignment="Center" x:Name="tbPowerOpticalResult" FontWeight="Bold" FontSize="80" Text="PASS">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=tbPowerOpticalResult, Path=Text}" Value="PASS">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbPowerOpticalResult, Path=Text}" Value="FAIL">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbPowerOpticalResult, Path=Text}" Value="wait">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbPowerOpticalResult, Path=Text}" Value="--">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+            </TabItem>
+            <!--Kiem tra LED-->
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontSize="15" Text="Check LEDs" FontWeight="SemiBold"/>
+                </TabItem.Header>
+                <Border Background="{StaticResource colorBackground}" CornerRadius="0,0,5,5" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                    <Grid Margin="10,10,10,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Margin="0,0,5,0" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="0">
+                            <Grid Margin="5,10,10,0">
+                                <RichTextBox x:Name="rtbLED" IsReadOnly="True" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="Transparent" FontWeight="Normal" Block.LineHeight="1" Margin="0,0,0,0"></RichTextBox>
+                            </Grid>
+                        </Border>
+                        <Border Background="#555555" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="1">
+                            <StackPanel Margin="5,10,10,0">
+                                <Button x:Name="btnLedPON" Click="btnLed_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="60" Background="{StaticResource colorBackground}" Foreground="Black" Content="Bật LED PON">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                    <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                    <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.ToolTip>
+                                        <ToolTip Background="Transparent" BorderThickness="0">
+                                            <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                <StackPanel Margin="5">
+                                                    <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC BẬT LED PON:</TextBlock>
+                                                    <TextBlock></TextBlock>
+                                                    <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 4. Click nút 'Bật LED PON'</TextBlock>
+                                                    <TextBlock></TextBlock>
+                                                </StackPanel>
+                                            </Border>
+                                        </ToolTip>
+                                    </Button.ToolTip>
+                                </Button>
+                                <Button  Margin="0,5,0,0" x:Name="btnLedINETX" Click="btnLed_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="60" Background="{StaticResource colorBackground}" Foreground="Black" Content="Bật LED INET Xanh">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                    <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                    <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.ToolTip>
+                                        <ToolTip Background="Transparent" BorderThickness="0">
+                                            <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                <StackPanel Margin="5">
+                                                    <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC BẬT LED INET XANH:</TextBlock>
+                                                    <TextBlock></TextBlock>
+                                                    <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 4. Click nút 'Bật LED INET Xanh'</TextBlock>
+                                                    <TextBlock></TextBlock>
+                                                </StackPanel>
+                                            </Border>
+                                        </ToolTip>
+                                    </Button.ToolTip>
+                                </Button>
+                                <Button  Margin="0,5,0,0" x:Name="btnLedINETD" Click="btnLed_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="60" Background="{StaticResource colorBackground}" Foreground="Black" Content="Bật LED INET Đỏ">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                    <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                    <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.ToolTip>
+                                        <ToolTip Background="Transparent" BorderThickness="0">
+                                            <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                <StackPanel Margin="5">
+                                                    <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC BẬT LED INET ĐỎ:</TextBlock>
+                                                    <TextBlock></TextBlock>
+                                                    <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 4. Click nút 'Bật LED INET Đỏ'</TextBlock>
+                                                    <TextBlock></TextBlock>
+                                                </StackPanel>
+                                            </Border>
+                                        </ToolTip>
+                                    </Button.ToolTip>
+                                </Button>
+                                <Button  Margin="0,5,0,0" x:Name="btnLedWLAN" Click="btnLed_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="60" Background="{StaticResource colorBackground}" Foreground="Black" Content="Bật LED WLAN">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                    <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                    <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.ToolTip>
+                                        <ToolTip Background="Transparent" BorderThickness="0">
+                                            <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                <StackPanel Margin="5">
+                                                    <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC BẬT LED WLAN:</TextBlock>
+                                                    <TextBlock></TextBlock>
+                                                    <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 4. Click nút 'Bật LED WLAN'</TextBlock>
+                                                    <TextBlock></TextBlock>
+                                                </StackPanel>
+                                            </Border>
+                                        </ToolTip>
+                                    </Button.ToolTip>
+                                </Button>
+                                <Button  Margin="0,5,0,0" x:Name="btnLedWPS" Click="btnLed_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="60" Background="{StaticResource colorBackground}" Foreground="Black" Content="Bật LED WPS">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                    <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                    <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.ToolTip>
+                                        <ToolTip Background="Transparent" BorderThickness="0">
+                                            <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                <StackPanel Margin="5">
+                                                    <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC BẬT LED WPS:</TextBlock>
+                                                    <TextBlock></TextBlock>
+                                                    <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 4. Click nút 'Bật LED WPS'</TextBlock>
+                                                    <TextBlock></TextBlock>
+                                                </StackPanel>
+                                            </Border>
+                                        </ToolTip>
+                                    </Button.ToolTip>
+                                </Button>
+                                <Button  Margin="0,5,0,0" x:Name="btnLedLOS" Click="btnLed_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="60" Background="{StaticResource colorBackground}" Foreground="Black" Content="Bật LED LOS">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                    <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                    <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.ToolTip>
+                                        <ToolTip Background="Transparent" BorderThickness="0">
+                                            <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                <StackPanel Margin="5">
+                                                    <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC BẬT LED LOS:</TextBlock>
+                                                    <TextBlock></TextBlock>
+                                                    <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                    <TextBlock Foreground="White">Bước 4. Click nút 'Bật LED LOS'</TextBlock>
+                                                    <TextBlock></TextBlock>
+                                                </StackPanel>
+                                            </Border>
+                                        </ToolTip>
+                                    </Button.ToolTip>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+            </TabItem>
+            <!--Kiem tra nút nhấn-->
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock FontSize="15" Text="Check Buttons" FontWeight="SemiBold"/>
+                </TabItem.Header>
+                <Border Background="{StaticResource colorBackground}" CornerRadius="0,0,5,5" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                    <Grid Margin="10,10,10,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Margin="0,0,5,0" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="0">
+                            <Grid Margin="5,10,10,0">
+                                <Label x:Name="lblbuttonLegend" FontSize="30" FontWeight="Bold" Foreground="{StaticResource colorTextNG}" Content="--"></Label>
+                                <RichTextBox x:Name="rtbButton" IsReadOnly="True" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="Transparent" FontWeight="Normal" Block.LineHeight="1" Margin="0,50,0,0"></RichTextBox>
+                            </Grid>
+                        </Border>
+                        <Border Background="#555555" CornerRadius="5" BorderBrush="{StaticResource colorBorder}" BorderThickness="0.5" Grid.Column="1">
+                            <StackPanel Margin="5,10,10,0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="100"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Button x:Name="btnCheckButton" Click="btnCheckButton_Click" FontSize="17" VerticalAlignment="Top" Grid.Row="0" Height="60" Background="{StaticResource colorBackground}" Foreground="Black" Content="Kiểm tra nút nhấn">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=HELP}" Value="true">
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="120000"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=HELP}" Value="false">
+                                                        <Setter Property="ToolTipService.ShowDuration" Value="0"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                        <Button.ToolTip>
+                                            <ToolTip Background="Transparent" BorderThickness="0">
+                                                <Border CornerRadius="5" Background="#0b4213" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+                                                    <StackPanel Margin="5">
+                                                        <TextBlock Foreground="White" FontWeight="Bold">TRÌNH TỰ THAO TÁC KIỂM TRA NÚT NHẤN:</TextBlock>
+                                                        <TextBlock></TextBlock>
+                                                        <TextBlock Foreground="White">Bước 1. Kết nối dây LAN giữa PC và ONT</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 2. Bật nguồn ONT</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 3. Chờ đến khi đèn WLAN của ONT sáng màu xanh</TextBlock>
+                                                        <TextBlock Foreground="White">Bước 4. Click nút 'Kiểm tra nút nhấn'</TextBlock>
+                                                        <TextBlock></TextBlock>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ToolTip>
+                                        </Button.ToolTip>
+                                    </Button>
+                                    <Grid Grid.Row="1">
+                                        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                                            <Label Margin="0,0,0,10" FontSize="15" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left">Kết quả kiểm tra:</Label>
+                                            <WrapPanel>
+                                                <Label FontSize="20" FontWeight="Normal" Foreground="{StaticResource colorTextYellow}">Nút WPS:</Label>
+                                                <Label x:Name="lblWPSResult" FontSize="20" FontWeight="Bold" Content="PASS">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=lblWPSResult, Path=Content}" Value="PASS">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblWPSResult, Path=Content}" Value="FAIL">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblWPSResult, Path=Content}" Value="wait">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblWPSResult, Path=Content}" Value="--">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                            </WrapPanel>
+                                            <WrapPanel>
+                                                <Label FontSize="20" FontWeight="Normal" Foreground="{StaticResource colorTextYellow}">Nút Reset:</Label>
+                                                <Label x:Name="lblResetResult" FontSize="20" FontWeight="Bold" Content="PASS">
+                                                    <Label.Style>
+                                                        <Style TargetType="Label">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=lblResetResult, Path=Content}" Value="PASS">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblResetResult, Path=Content}" Value="FAIL">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblResetResult, Path=Content}" Value="wait">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding ElementName=lblResetResult, Path=Content}" Value="--">
+                                                                    <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Label.Style>
+                                                </Label>
+                                            </WrapPanel>
+                                            <Label Margin="0,10,0,10" FontSize="15" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left">PHÁN ĐỊNH TỔNG:</Label>
+                                            <TextBlock VerticalAlignment="Center" Margin="0,-20,0,0" HorizontalAlignment="Center" x:Name="tbButtonResult" FontWeight="Bold" FontSize="80" Text="PASS">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=tbButtonResult, Path=Text}" Value="PASS">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextOK}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbButtonResult, Path=Text}" Value="FAIL">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextNG}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbButtonResult, Path=Text}" Value="wait">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding ElementName=tbButtonResult, Path=Text}" Value="--">
+                                                                <Setter Property="Foreground" Value="{StaticResource colorTextYellow}"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+            </TabItem>
+        </TabControl>
+    </Border>
+</UserControl>

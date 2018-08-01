@@ -1,0 +1,486 @@
+﻿<Window x:Class="TestFunctionGW040x.frmLED"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestFunctionGW040x"
+        mc:Ignorable="d"
+        Title="frmLED" Height="175" Width="690" Style="{StaticResource customWindow}" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ShowActivated="False" ShowInTaskbar="False" Topmost="True">
+
+    <Border Opacity="1.0" CornerRadius="5" Background="#4035e8" BorderBrush="{StaticResource colorBorder}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <WrapPanel>
+                    <Label FontSize="15" VerticalContentAlignment="Center" VerticalAlignment="Center" Foreground="Yellow" Height="40" FontWeight="SemiBold">XÁC NHẬN TRẠNG THÁI CỦA CÁC LED</Label>
+                </WrapPanel>
+                <Label MouseDown="Label_MouseDown"  VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,-5,5,0" HorizontalAlignment="Right" Foreground="{StaticResource colorTextTitle}" ToolTipService.ToolTip="Tắt Form" Content="X"></Label>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="45"/>
+                </Grid.RowDefinitions>
+                
+                <Border CornerRadius="5" Grid.Row="0" Margin="5,0,5,0" BorderBrush="White" BorderThickness="0,0.1,0,0.1">
+                    <Grid Margin="0,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Row="0" Grid.Column="0" Margin="0,0,0,0">
+                            <Border Width="105" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="{StaticResource colorBorder}" BorderThickness="1" CornerRadius="15,15,15,15"
+                                    x:Name="grPower" MouseDown="Grid_MouseDown" Background="Transparent">
+                                <Grid>
+                                    <Border HorizontalAlignment="Left" Width="40" CornerRadius="15" BorderBrush="White" BorderThickness="0,0,1,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=POWERJUD}" Value="true">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=POWERJUD}" Value="false">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label FontSize="14" Foreground="White" FontWeight="Bold">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=POWERJUD}" Value="true">
+                                                                <Setter Property="Content" Value="OK"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=POWERJUD}" Value="false">
+                                                                <Setter Property="Content" Value="NG"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                        </Grid>
+                                    </Border>
+                                    <Label HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="14" Foreground="White" FontWeight="SemiBold">POWER</Label>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="1" Margin="0,0,0,0">
+                            <Border Width="105" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="{StaticResource colorBorder}" BorderThickness="1" CornerRadius="15,15,15,15"
+                                    x:Name="grPon" MouseDown="Grid_MouseDown" Background="Transparent"
+                                    Visibility="Visible">
+                                <Grid >
+                                    <Border HorizontalAlignment="Left" Width="40" CornerRadius="15" BorderBrush="White" BorderThickness="0,0,1,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=PONJUD}" Value="true">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=PONJUD}" Value="false">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label FontSize="14" Foreground="White" FontWeight="Bold">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=PONJUD}" Value="true">
+                                                                <Setter Property="Content" Value="OK"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=PONJUD}" Value="false">
+                                                                <Setter Property="Content" Value="NG"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                        </Grid>
+                                    </Border>
+                                    <Label HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="14" Foreground="White" FontWeight="SemiBold">PON</Label>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="2" Margin="0,0,0,0">
+                            <Border Width="105" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="{StaticResource colorBorder}" BorderThickness="1" CornerRadius="15,15,15,15"
+                                    x:Name="grInet" MouseDown="Grid_MouseDown" Background="Transparent">
+                                <Grid >
+                                    <Border HorizontalAlignment="Left" Width="40" CornerRadius="15" BorderBrush="White" BorderThickness="0,0,1,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=INETJUD}" Value="true">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=INETJUD}" Value="false">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label FontSize="14" Foreground="White" FontWeight="Bold">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=INETJUD}" Value="true">
+                                                                <Setter Property="Content" Value="OK"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=INETJUD}" Value="false">
+                                                                <Setter Property="Content" Value="NG"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                        </Grid>
+                                    </Border>
+                                    <Label HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="14" Foreground="White" FontWeight="SemiBold">INET</Label>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="4" Margin="0,0,0,0">
+                            <Border Width="105" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="{StaticResource colorBorder}" BorderThickness="1" CornerRadius="15,15,15,15"
+                                    x:Name="grWlan" MouseDown="Grid_MouseDown" Background="Transparent">
+                                <Grid >
+                                    <Border HorizontalAlignment="Left" Width="40" CornerRadius="15" BorderBrush="White" BorderThickness="0,0,1,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=WLANJUD}" Value="true">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=WLANJUD}" Value="false">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label FontSize="14" Foreground="White" FontWeight="Bold">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=WLANJUD}" Value="true">
+                                                                <Setter Property="Content" Value="OK"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=WLANJUD}" Value="false">
+                                                                <Setter Property="Content" Value="NG"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                        </Grid>
+                                    </Border>
+                                    <Label HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="14" Foreground="White" FontWeight="SemiBold">LED 2G</Label>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="5" Margin="0,0,0,0">
+                            <Border Width="105" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="{StaticResource colorBorder}" BorderThickness="1" CornerRadius="15,15,15,15"
+                                    x:Name="grWlan5g" MouseDown="Grid_MouseDown" Background="Transparent">
+                                <Grid >
+                                    <Border HorizontalAlignment="Left" Width="40" CornerRadius="15" BorderBrush="White" BorderThickness="0,0,1,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=WLAN5GJUD}" Value="true">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=WLAN5GJUD}" Value="false">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label FontSize="14" Foreground="White" FontWeight="Bold">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=WLAN5GJUD}" Value="true">
+                                                                <Setter Property="Content" Value="OK"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=WLAN5GJUD}" Value="false">
+                                                                <Setter Property="Content" Value="NG"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                        </Grid>
+                                    </Border>
+                                    <Label HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="14" Foreground="White" FontWeight="SemiBold">LED 5G</Label>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="0" Grid.Column="3" Margin="0,0,0,0">
+                            <Border Width="105" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="{StaticResource colorBorder}" BorderThickness="1" CornerRadius="15,15,15,15"
+                                    x:Name="grWps" MouseDown="Grid_MouseDown" Background="Transparent">
+                                <Grid >
+                                    <Border HorizontalAlignment="Left" Width="40" CornerRadius="15" BorderBrush="White" BorderThickness="0,0,1,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=WPSJUD}" Value="true">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=WPSJUD}" Value="false">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label FontSize="14" Foreground="White" FontWeight="Bold">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=WPSJUD}" Value="true">
+                                                                <Setter Property="Content" Value="OK"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=WPSJUD}" Value="false">
+                                                                <Setter Property="Content" Value="NG"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                        </Grid>
+                                    </Border>
+                                    <Label HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="14" Foreground="White" FontWeight="SemiBold">WPS</Label>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="0" Margin="0,0,0,0">
+                            <Border Width="105" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="{StaticResource colorBorder}" BorderThickness="1" CornerRadius="15,15,15,15"
+                                    x:Name="grLos" MouseDown="Grid_MouseDown" Background="Transparent">
+                                <Grid >
+                                    <Border HorizontalAlignment="Left" Width="40" CornerRadius="15" BorderBrush="White" BorderThickness="0,0,1,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=LOSJUD}" Value="true">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=LOSJUD}" Value="false">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label FontSize="14" Foreground="White" FontWeight="Bold">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=LOSJUD}" Value="true">
+                                                                <Setter Property="Content" Value="OK"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=LOSJUD}" Value="false">
+                                                                <Setter Property="Content" Value="NG"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                        </Grid>
+                                    </Border>
+                                    <Label HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="14" Foreground="White" FontWeight="SemiBold">LOS</Label>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,0">
+                            <Border Width="105" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="{StaticResource colorBorder}" BorderThickness="1" CornerRadius="15,15,15,15"
+                                    x:Name="grLan1" MouseDown="Grid_MouseDown" Background="Transparent">
+                                <Grid >
+                                    <Border HorizontalAlignment="Left" Width="40" CornerRadius="15" BorderBrush="White" BorderThickness="0,0,1,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=LAN1JUD}" Value="true">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=LAN1JUD}" Value="false">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label FontSize="14" Foreground="White" FontWeight="Bold">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=LAN1JUD}" Value="true">
+                                                                <Setter Property="Content" Value="OK"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=LAN1JUD}" Value="false">
+                                                                <Setter Property="Content" Value="NG"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                        </Grid>
+                                    </Border>
+                                    <Label HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="14" Foreground="White" FontWeight="SemiBold">LAN1</Label>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="2" Margin="0,0,0,0">
+                            <Border Width="105" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="{StaticResource colorBorder}" BorderThickness="1" CornerRadius="15,15,15,15"
+                                    x:Name="grLan2" MouseDown="Grid_MouseDown" Background="Transparent">
+                                <Grid >
+                                    <Border HorizontalAlignment="Left" Width="40" CornerRadius="15" BorderBrush="White" BorderThickness="0,0,1,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=LAN2JUD}" Value="true">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=LAN2JUD}" Value="false">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label FontSize="14" Foreground="White" FontWeight="Bold">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=LAN2JUD}" Value="true">
+                                                                <Setter Property="Content" Value="OK"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=LAN2JUD}" Value="false">
+                                                                <Setter Property="Content" Value="NG"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                        </Grid>
+                                    </Border>
+                                    <Label HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="14" Foreground="White" FontWeight="SemiBold">LAN2</Label>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="3" Margin="0,0,0,0">
+                            <Border Width="105" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="{StaticResource colorBorder}" BorderThickness="1" CornerRadius="15,15,15,15"
+                                    x:Name="grLan3" MouseDown="Grid_MouseDown" Background="Transparent">
+                                <Grid >
+                                    <Border HorizontalAlignment="Left" Width="40" CornerRadius="15" BorderBrush="White" BorderThickness="0,0,1,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=LAN3JUD}" Value="true">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=LAN3JUD}" Value="false">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label FontSize="14" Foreground="White" FontWeight="Bold">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=LAN3JUD}" Value="true">
+                                                                <Setter Property="Content" Value="OK"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=LAN3JUD}" Value="false">
+                                                                <Setter Property="Content" Value="NG"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                        </Grid>
+                                    </Border>
+                                    <Label HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="14" Foreground="White" FontWeight="SemiBold">LAN3</Label>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="4" Margin="0,0,0,0">
+                            <Border Width="105" Height="35" HorizontalAlignment="Left"
+                                    BorderBrush="{StaticResource colorBorder}" BorderThickness="1" CornerRadius="15,15,15,15"
+                                    x:Name="grLan4" MouseDown="Grid_MouseDown" Background="Transparent">
+                                <Grid >
+                                    <Border HorizontalAlignment="Left" Width="40" CornerRadius="15" BorderBrush="White" BorderThickness="0,0,1,0">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=LAN4JUD}" Value="true">
+                                                        <Setter Property="Background" Value="Lime"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Path=LAN4JUD}" Value="false">
+                                                        <Setter Property="Background" Value="Red"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label FontSize="14" Foreground="White" FontWeight="Bold">
+                                                <Label.Style>
+                                                    <Style TargetType="Label">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Path=LAN4JUD}" Value="true">
+                                                                <Setter Property="Content" Value="OK"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Path=LAN4JUD}" Value="false">
+                                                                <Setter Property="Content" Value="NG"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Label.Style>
+                                            </Label>
+                                        </Grid>
+                                    </Border>
+                                    <Label HorizontalAlignment="Left" Margin="40,0,0,0" FontSize="14" Foreground="White" FontWeight="SemiBold">LAN4</Label>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Grid Grid.Row="1">
+                    <WrapPanel Margin="0,0,15,0" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button x:Name="btnMacDinh" Click="Button_Click" Height="35" Width="100" Margin="0,0,10,0" Background="#FFAAAAAA">Mặc Định</Button>
+                        <Button x:Name="btnDongY" Click="Button_Click" Height="35" Width="100" Background="#FFAAAAAA">Đồng Ý</Button>
+                    </WrapPanel>
+                    <Label x:Name="lblLegend" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="White" FontWeight="SemiBold">*** CLICK CHUỘT TRÁI VÀO TỪNG LED ĐỂ THAY ĐỔI LÀ OK/NG</Label>
+                </Grid>
+            </Grid>
+                
+            
+        </Grid>
+    </Border>
+</Window>

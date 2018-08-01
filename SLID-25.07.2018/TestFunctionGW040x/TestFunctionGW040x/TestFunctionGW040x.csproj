@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3C05A495-74A2-412E-918F-98A4F02CC33C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TestFunctionGW040x</RootNamespace>
+    <AssemblyName>TestFunctionGW040x</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Assets\Icons\check.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=1.2.0.38656, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\TestPCBA-GW040\TestPCBAForGW040x\TestPCBAForGW040x\bin\Debug\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="reachframework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Funtions\Base\baseFunctions.cs" />
+    <Compile Include="Funtions\Base\ISyn.cs" />
+    <Compile Include="Funtions\Excute\exButton.cs" />
+    <Compile Include="Funtions\Excute\exFirmware.cs" />
+    <Compile Include="Funtions\Excute\exLAN.cs" />
+    <Compile Include="Funtions\Excute\exLED.cs" />
+    <Compile Include="Funtions\Excute\exLOGGER.cs" />
+    <Compile Include="Funtions\Excute\exMAC.cs" />
+    <Compile Include="Funtions\Excute\exPower.cs" />
+    <Compile Include="Funtions\Excute\exPowerOptical.cs" />
+    <Compile Include="Funtions\Excute\exSLID.cs" />
+    <Compile Include="Funtions\Excute\exSYN.cs" />
+    <Compile Include="Funtions\Excute\exUSB.cs" />
+    <Compile Include="Funtions\GlobalData.cs" />
+    <Compile Include="Funtions\Device\ONT.cs" />
+    <Compile Include="Funtions\Device\OLT.cs" />
+    <Compile Include="Funtions\Protocol\Network.cs" />
+    <Compile Include="Funtions\Protocol\Telnet.cs" />
+    <Compile Include="Funtions\Userdefine\initParameters.cs" />
+    <Compile Include="Funtions\Userdefine\UserDefine.cs" />
+    <Compile Include="SubControls\frmBUTTON.xaml.cs">
+      <DependentUpon>frmBUTTON.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubControls\frmCONFIRM.xaml.cs">
+      <DependentUpon>frmCONFIRM.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubControls\frmLED.xaml.cs">
+      <DependentUpon>frmLED.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubControls\frmMESSAGE.xaml.cs">
+      <DependentUpon>frmMESSAGE.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubControls\frmPOWER.xaml.cs">
+      <DependentUpon>frmPOWER.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SubControls\LOGIN.xaml.cs">
+      <DependentUpon>LOGIN.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucAbout.xaml.cs">
+      <DependentUpon>ucAbout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucHelp.xaml.cs">
+      <DependentUpon>ucHelp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucLogin.xaml.cs">
+      <DependentUpon>ucLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucSetting.xaml.cs">
+      <DependentUpon>ucSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucStep.xaml.cs">
+      <DependentUpon>ucStep.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucTesting.xaml.cs">
+      <DependentUpon>ucTesting.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Assets\Resources\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Resources\CheckBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Resources\Combobox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Resources\customWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Resources\DataGrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Resources\Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Resources\Listbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Resources\RadioButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Resources\Slider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Resources\TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Resources\Textbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\Resources\ToggleButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="SubControls\frmBUTTON.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubControls\frmCONFIRM.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubControls\frmLED.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubControls\frmMESSAGE.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubControls\frmPOWER.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubControls\LOGIN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucAbout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucHelp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucStep.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucTesting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\next.png" />
+    <Resource Include="Assets\Images\password.png" />
+    <Resource Include="Assets\Images\user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\igate.png" />
+    <Resource Include="Assets\Images\logovnpt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\parallel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\sequence.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\function.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\common.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\gw040.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\OLT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\barcode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\modem.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\barcodescanner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\admin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\administrator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Icons\check.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\setup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\hold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\power.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\power2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\power3.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

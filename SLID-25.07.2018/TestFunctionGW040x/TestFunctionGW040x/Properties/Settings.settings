@@ -1,0 +1,81 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TestFunctionGW040x.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="EnableFW" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="EnableMAC" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="EnableLAN" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="EnableUSB" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="EnableSYN" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="EnablePOWER" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="EnableBUTTON" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="EnableLED" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Mac6digit" Type="System.String" Scope="User">
+      <Value Profile="(Default)">A4F4C2</Value>
+    </Setting>
+    <Setting Name="FwVersion" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DutIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.1.1</Value>
+    </Setting>
+    <Setting Name="DutTelnetUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">admin</Value>
+    </Setting>
+    <Setting Name="DutTelnetPass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ttcn@77CN</Value>
+    </Setting>
+    <Setting Name="OltIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">10.84.1.106</Value>
+    </Setting>
+    <Setting Name="OltTelnetUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">isadmin</Value>
+    </Setting>
+    <Setting Name="OltTelnetPass" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ans#150</Value>
+    </Setting>
+    <Setting Name="BarcodeType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">USB</Value>
+    </Setting>
+    <Setting Name="BarcodeSPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-</Value>
+    </Setting>
+    <Setting Name="BarcodeBaudRate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-</Value>
+    </Setting>
+    <Setting Name="OltCommand" Type="System.String" Scope="User">
+      <Value Profile="(Default)">show pon unprovision-onu | match exact:</Value>
+    </Setting>
+    <Setting Name="DutTxMin" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="DutTxMax" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="DutRxMin" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-30</Value>
+    </Setting>
+    <Setting Name="DutRxMax" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">-26</Value>
+    </Setting>
+    <Setting Name="DutSLID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">slid1</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
